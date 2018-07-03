@@ -42,7 +42,13 @@ public class QueueManager {
                 System.out.println("Using a sorted list");
                 break;
             case "ul":
+                q = new Unsortedlist<>(8);
+                System.out.println("Using a sorted list");
+                break;
             case "h":
+                q = new MaxHeap<>(8);
+                System.out.println("Using a sorted list");
+                break;
             default:
                 q = new SortedArrayPriorityQueue<>(8);
                 System.out.println("Invalid choice, using sorted array.");

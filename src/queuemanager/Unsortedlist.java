@@ -1,18 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package queuemanager;
 
-/**
- *
- * @author Ben
- */
+//@param <T>
 public class Unsortedlist <T>  implements PriorityQueue<T>{
     
    private ListNodes<T> top;
 
+   //function used to determine the size of the list
     private int size()
     {
         ListNodes<T> node = top;
@@ -33,7 +26,26 @@ public class Unsortedlist <T>  implements PriorityQueue<T>{
 
     @Override
     public void add(T item, int priority) throws QueueOverflowException {
-        top = new ListNodes<>(item,top);
+        
+        
+        
+        // if first node
+        if (this.top == null) {
+            ListNodes node = new ListNodes(item,top);
+            this.top = node;
+            this.top.next = null;
+        } else {
+            ListNodes current = this.top;
+            while (current.next != null) {
+                current = current.next;
+            }
+ 
+            ListNodes node = new ListNodes(item,top);
+            current.next = node;
+            current.next.next = null;
+        }
+ 
+        
     }
 
     @Override

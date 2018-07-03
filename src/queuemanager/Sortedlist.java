@@ -1,18 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package queuemanager;
 
-/**
- *
- * @author Ben
- */
+
+ //@param <T>
+ 
 public class Sortedlist <T>  implements PriorityQueue<T> {
     
     private ListNodes<T> top;
 
+    //function used to determine the size of the list
     private int size()
     {
         ListNodes<T> node = top;
