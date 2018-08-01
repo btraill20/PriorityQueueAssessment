@@ -26,9 +26,7 @@ public class Unsortedlist <T>  implements PriorityQueue<T>{
 
     @Override
     public void add(T item, int priority) throws QueueOverflowException {
-        
-        
-        
+
         // if first node
         if (this.top == null) {
             ListNodes node = new ListNodes(item,top);
@@ -72,15 +70,16 @@ public class Unsortedlist <T>  implements PriorityQueue<T>{
     
     @Override
     public String toString() {
-        String result = "Sorted Linked list size =" + size();
+        String result = "Unsorted Linked list size =" + size();
         result += ", contents = [";
                 for(ListNodes<T> node = top; node != null; node = node.getNext())
                 {
                     if(node != top)
                     {
-                    result += ", ";
+                    result += ", [";
                     }
                     result += node.getItem();
+                    result += "]";
                 }
         return result;
     }

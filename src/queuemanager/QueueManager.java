@@ -28,29 +28,28 @@ public class QueueManager {
         /* Select implementation version to use */
         switch (input.toLowerCase()) {
             case "sa":
-                q = new SortedArrayPriorityQueue<>(8);
+                q = new SortedArrayPriorityQueue<>(10);
                 System.out.println("Using a sorted array.");
                 break;
             case "ua":
-                //the number is the number of objects that can be stored,
-                //if empty it would be infinite but since we have capacity set it is needed to set the limit here
-                q = new UnsortedArray<>(8);
+                //the number is the number of objects that can be stored
+                q = new UnsortedArray<>(10);
                 System.out.println("Using a un-sorted array.");
                 break;
             case "sl":
-                q = new Sortedlist<>(8);
-                System.out.println("Using a sorted list");
+                q = new Sortedlist<>(10);
+                System.out.println("Using a sorted linked list");
                 break;
             case "ul":
-                q = new Unsortedlist<>(8);
-                System.out.println("Using a sorted list");
+                q = new Unsortedlist<>(10);
+                System.out.println("Using a unsorted linked list");
                 break;
             case "h":
-                q = new MaxHeap<>(8);
-                System.out.println("Using a sorted list");
+                q = new MaxHeap<>(20);
+                System.out.println("Using a binary max heap");
                 break;
             default:
-                q = new SortedArrayPriorityQueue<>(8);
+                q = new SortedArrayPriorityQueue<>(10);
                 System.out.println("Invalid choice, using sorted array.");
                 break;
         }

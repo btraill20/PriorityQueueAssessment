@@ -61,9 +61,10 @@ public class Sortedlist <T>  implements PriorityQueue<T> {
                 {
                     if(node != top)
                     {
-                    result += ", ";
+                    result += ", [";
                     }
                     result += node.getItem();
+                    result += "]";
                 }
         return result;
     }
