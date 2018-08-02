@@ -1,110 +1,121 @@
 package queuemanager;
 
-/*
-encase this doesnt work, the class is to work like a unorderedlist/array, find the max element given and have
-element sit at the end of the array/list. to remove an element would be to remove the last element of the list/array
-and to then check all elements for the biggest number to go into the end of the list/array.
-*/
 public class MaxHeap  <T>  implements PriorityQueue<T> {
-    
-    private ListNodes<T> top;
-//    private ListNodes<T> left;
-//    private ListNodes<T> right;
-//    private ListNodes<T> priority;
+        
 
     private final Object[] storage;
     private final int capacity;
     private int index;
     
-    int arr[];
     
     public MaxHeap(int size){
-        top = null;
         storage = new Object[size];
         capacity = size;
         index = -1;
     }
     
-    public void sort(){
-        int n = arr.length;
- 
-        // Build heap (rearrange array)
-        for (int i = n / 2 - 1; i >= 0; i--)
-            heapify(arr, n, i);
- 
-        // One by one extract an element from heap
-        for (int i=n-1; i>=0; i--)
+    private void sort() {
+        int length = storage.length;
+        buildMaxHeap(storage, length);
+        //this loop is to cast each element of the object storage as i could not cast a object to int in the sorting for loop.
+        Integer[] c = new Integer[storage.length];
+        for(int i = 0; i < storage.length; i++)
         {
-            // Move current root to end
-            int temp = arr[0];
-            arr[0] = arr[i];
-            arr[i] = temp;
- 
-            // call max heapify on the reduced heap
-            heapify(arr, i, 0);
+            c[i] = (Integer) storage[i];
+        }
+        //this loop checks each node for size.
+        for(int i = length - 1; i > 0; i--) {
+            int temp = c[0];
+            c[0] = c[i];
+            c[i] = temp;
+            buildMaxHeap(c, i);
         }
     }
     
-    private void heapify(int arr[], int n, int i)
+    
+    private void buildMaxHeap(Object[] storage, int heapSize) {
+        if(storage == null) {
+            throw new NullPointerException("null");
+        }
+        if(storage.length <=0 || heapSize <= 0) {
+            throw new IllegalArgumentException("illegal");
+        }
+        if(heapSize > storage.length) {
+            heapSize = storage.length;
+        }
+
+        for(int i = heapSize/2; i > 0; i--) {
+            heapify(storage, i, heapSize);
+        }
+    }
+    
+    private void heapify(Object[] storage, int n, int i)
     {
         int largest = i;  // Initialize largest as root
         int l = 2*i + 1;  // left = 2*i + 1
         int r = 2*i + 2;  // right = 2*i + 2
- 
+        
         // If left child is larger than root
-        if (l < n && arr[l] > arr[largest])
-            largest = l;
+        if (l <= n) {
+            if (l >= largest) {
+                largest = l;
+            }
+        }
  
         // If right child is larger than largest so far
-        if (r < n && arr[r] > arr[largest])
-            largest = r;
+        if (r <= n) {
+            if (r > largest) {
+                largest = r;
+            }
+        }
  
         // If largest is not root
         if (largest != i)
         {
-            int swap = arr[i];
-            arr[i] = arr[largest];
-            arr[largest] = swap;
+            int swap = (int) storage[i];
+            storage[i] = storage[largest];
+            storage[largest] = swap;
  
             // Recursively heapify the affected sub-tree
-            heapify(arr, n, largest);
+            heapify(storage,n, largest);
         }
     }
     
     //used to check parent node for size before adding
     @Override
     public void add(T item, int priority) throws QueueOverflowException {
+        index = index + 1;
         if (index >= capacity)
         {
             index = index - 1;
             throw new QueueOverflowException();
-        }
- 
-        // First insert the new key at the end
-        index++;
-        int i = index - 1;
-        storage[i] = priority;
-       
+        }else {
+            /* Scan backwards looking for insertion point */
+            int i = index;
+            storage[i] = new PriorityItem<>(item, priority);
+            sort();
+        }      
     }
 
     @Override
     public void remove() throws QueueUnderflowException {
-        
+        if (isEmpty()) {
+            throw new QueueUnderflowException();
+        } else {
+            for (int i = 0; i < index; i++) {
+                storage[i] = storage[i + 1];
+            }
+            index = index - 1;
+        }
     }
     
     @Override
     public T head() throws QueueUnderflowException {
-        return null;
-    }
-    
-    private int size(){
-        ListNodes<T> node = top;
-        int result = 0;
-        while(node != null){
-            result = result + 1;
-            node = node.getNext();
+        if (isEmpty()) {
+            throw new QueueUnderflowException();
+        } else {
+            return ((PriorityItem<T>) storage[0]).getItem();
         }
-        return result;
     }
     
     @Override
