@@ -1,5 +1,7 @@
 package queuemanager;
 
+//current issue is getting the heap methods to work, as im having issues with 
+//autoboxing and such, i think if i used a linked list i wouldnt have this issue.
 public class MaxHeap  <T>  implements PriorityQueue<T> {
         
 
@@ -14,10 +16,10 @@ public class MaxHeap  <T>  implements PriorityQueue<T> {
         index = -1;
     }
     
+    //method to sort the array into a max heap but making the largest priority number sit in the root.
     private void sort() {
         int length = storage.length;
         buildMaxHeap(storage, length);
-        //this loop is to cast each element of the object storage as i could not cast a object to int in the sorting for loop.
         Integer[] c = new Integer[storage.length];
         for(int i = 0; i < storage.length; i++)
         {
@@ -32,7 +34,7 @@ public class MaxHeap  <T>  implements PriorityQueue<T> {
         }
     }
     
-    
+    //this is to build the Max heap
     private void buildMaxHeap(Object[] storage, int heapSize) {
         if(storage == null) {
             throw new NullPointerException("null");
@@ -49,6 +51,7 @@ public class MaxHeap  <T>  implements PriorityQueue<T> {
         }
     }
     
+    //this is to check each node for size and swap nodes from left to right so the largest is always top.
     private void heapify(Object[] storage, int n, int i)
     {
         int largest = i;  // Initialize largest as root
@@ -81,7 +84,6 @@ public class MaxHeap  <T>  implements PriorityQueue<T> {
         }
     }
     
-    //used to check parent node for size before adding
     @Override
     public void add(T item, int priority) throws QueueOverflowException {
         index = index + 1;

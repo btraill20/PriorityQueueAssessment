@@ -1,14 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package queuemanager;
 
-/**
- *
- * @author Ben
- */
 public class UnsortedArray<T> implements PriorityQueue<T> {
     //setting the varibles for the class, these are private as not to conflict with the other classes.
     private final Object[] storage;
